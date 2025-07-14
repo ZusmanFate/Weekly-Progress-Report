@@ -1,0 +1,137 @@
+knife4j:
+  basic:
+    enable: false
+    password: ${magicbox.security.tokenservice.client-secret}
+    username: ${magicbox.security.tokenservice.client-id}
+  enable: true
+logging:
+  level:
+    root: error
+magicbox:
+  api:
+    admin:
+      #uri: http://172.17.222.10:8033/api/manage
+      uri: http://api.admin.t.lzyy.cn/
+  security:
+    oauth2:
+      resource:
+        id: api-admin
+    tokenservice:
+      client-id: develop_api_admin
+      client-secret: 123456
+      #url: http://172.17.222.10:8033/oauth-server/oauth/check_token
+      url: http://oauth.server.t.lzyy.cn/oauth/check_token
+  canunda:
+    uri: http://api.server.t.lzyy.cn/pe
+    processkey: test_rebaterescheck_6370645181f3b87467b64866c29c654a
+  tms:
+    uri: http://api.tms.t.lzyy.cn/
+  easycode:
+    uri: http://api.server.t.lzyy.cn
+  erp:
+    #uri: http://api.erp.t.lzyy.cn
+    uri: https://api.erp.d.lzyy.cn
+    #uri: http://localhost:8090
+easy-code:
+  sign-off-url: http://ant.easycode.t.lzyy.cn/
+  templatetableid: 556faba177760909cb290e7b2bae3848
+mybatis:
+  config-location: classpath:/mybatis/config/mybatis-config.xml
+mybatis-plus:
+  mapper-locations: classpath:/mybatis/mapper/*.xml,classpath:/mybatis/mapper/**/*.xml
+  #配置sql打印日志
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+oding: utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&autoReconnect=true
+server:
+  port: 8080
+  servlet:
+    context-path: /datacenterservice
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 300000  # 连接超时时间（毫秒）
+        readTimeout: 360000    # 读取超时时间（毫秒）
+spring:
+  datasource:
+    dynamic:
+      primary: informixerp #设置默认的数据源或者数据源组,默认值即为 master
+      strict: false # 设置严格模式，当数据源找不到时，是否抛出异常，默认为false不抛出
+      druid:
+        max-wait: 30000
+      datasource: #数据库源名称必须和数据源枚举类一致(DataSourceEnum)
+        informixerp:
+          type: 'com.alibaba.druid.pool.DruidDataSource'
+          url: jdbc:informix-sqli://172.16.221.10:16668/lzmis_c:INFORMIXSERVER=on_p740;DB_LOCALE=en_us.819;CLIENT_LOCALE=en_us.57372;NEWCODESET=GBK,8859-1,819;IFX_USE_STRENC=true;
+          password: 10d6Yvdo
+          driver-class-name: com.informix.jdbc.IfxDriver
+          username: informix
+        informixdsf:
+          type: 'com.alibaba.druid.pool.DruidDataSource'
+          url: jdbc:informix-sqli://172.16.220.12:6616/lzmis_c:INFORMIXSERVER=on_dsf;DB_LOCALE=en_us.819;CLIENT_LOCALE=en_us.57372;NEWCODESET=GBK,8859-1,819;IFX_USE_STRENC=true;
+          password: YgCEv^IxAqB0
+          driver-class-name: com.informix.jdbc.IfxDriver
+          username : webcon
+        b2bmiddledbKm: #康民中间库
+          type: 'com.alibaba.druid.pool.DruidDataSource'
+          url: jdbc:mysql://127.0.0.1:3306/lzyyb2bdb?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai&socketTimeout=60000
+          password:
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          username: root
+        b2bmiddledbTest: #康民中间库
+          type: 'com.alibaba.druid.pool.DruidDataSource'
+          url: jdbc:mysql://127.0.0.1:3306/lzyyb2bdb?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai&socketTimeout=60000
+          password:
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          username: root
+        datacenter: #数仓Impala
+          type: 'com.alibaba.druid.pool.DruidDataSource'
+          url: jdbc:impala://172.17.224.214:21050/dws
+          password: abcd1234
+          driver-class-name: com.cloudera.impala.jdbc41.Driver
+          username: hdfs
+        starrocks: # StarRocks OLAP
+          type: 'com.alibaba.druid.pool.DruidDataSource'
+          url: jdbc:mysql://172.17.224.210:9030?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai
+          username: erplysrser
+          password: Lre@!f2#9
+          driver-class-name: com.mysql.cj.jdbc.Driver
+  freemarker:
+    suffix: .html
+    template-loader-path: classpath:/templates/
+  jackson:
+    time-zone: Asia/Shanghai
+  main:
+    allow-bean-definition-overriding: true
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
+  ###xxl-job admin address list, such as "http://address" or "http://address01,http://address02"
+xxl:
+  job:
+    admin:
+      #addresses: https://api.server.d.lzyy.cn/xxljob/
+      addresses: http://xxl.job.t.lzyy.cn/
+      #addresses: http://localhost:9000/xxl-job-admin/
+      #accessToken: be9b3c02-83d6-946b-a9e6-aaf337cf725e
+      accessToken: be9b3c02-83d6-946b-a9e6-aaf337cf725e
+      #accessToken: default_token
+    ###xxl-job executor appname
+    executor:
+      appname: datacenter-service-impl
+      port: 9999
+      address:
+      ip:
+      logpath: /data/applogs/xxl-job/jobhandler
+      ###xxl-job executor log-path
+      #logpath: /users/zhaoyihang/soft/xxl-job-log/jobhandler
+      ###xxl-job executor log-retention-days
+      logretentiondays: 30
+secret:
+  enabled: true
+  sm4:
+    key_test: gfdzwhjw8maqv0nd
+    key: spc04c4ucr0onztq
+    allow-skip-encrypt: false
